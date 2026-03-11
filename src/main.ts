@@ -4,7 +4,8 @@ import { AppModule } from './app.module';
 
 async function bootstrap(): Promise<void> {
   const app = await NestFactory.create(AppModule);
-  const corsOriginsRaw = process.env.CORS_ORIGINS ?? 'http://localhost:5173';
+  const corsOriginsRaw =
+    process.env.CORS_ORIGINS ?? 'http://localhost:5173,https://mvk85.github.io';
   const corsOrigins = corsOriginsRaw
     .split(',')
     .map((origin) => origin.trim())
