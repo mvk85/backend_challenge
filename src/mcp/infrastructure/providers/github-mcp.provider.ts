@@ -98,11 +98,8 @@ export class GithubMcpProvider implements McpProviderPort {
   }
 
   async healthCheck(): Promise<{ connected: boolean; details?: unknown }> {
-    if (!this.client) {
-      return { connected: false, details: 'Client is not connected yet' };
-    }
-
     try {
+      await this.connect();
       const tools = await this.listTools();
       return {
         connected: true,
