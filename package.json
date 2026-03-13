@@ -8,6 +8,7 @@
     "build": "nest build",
     "start": "node dist/main.js",
     "start:dev": "nest start --watch",
+    "start:file-tools-mcp": "node mcp-servers/file-tools-mcp/index.js",
     "test:watch": "jest --watch",
     "lint": "eslint \"src/**/*.ts\" \"test/**/*.ts\""
   },

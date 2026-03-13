@@ -3,6 +3,7 @@
 /node_modules
 /build
 /tmp
+/storage
 
 # Logs
 logs
