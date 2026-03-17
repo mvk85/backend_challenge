@@ -3,7 +3,7 @@ import { ConfigService } from '@nestjs/config';
 import { McpProviderPort, McpToolDefinition, McpToolInvocationResult } from '../../domain/ports/mcp-provider.port';
 
 const SUMMARY_JSON_TOOL_NAME = 'summary_json';
-const DEFAULT_PROXYAPI_URL = 'https://openai.api.proxyapi.ru/v1/chat/completions';
+const DEFAULT_PROXYAPI_URL = 'https://api.proxyapi.ru/openai/v1';
 const DEFAULT_PROXYAPI_MODEL = 'gpt-5.1';
 
 @Injectable()
@@ -266,7 +266,12 @@ export class LlmMcpProvider implements McpProviderPort {
       this.configService.get<string>('VITE_OPENAI_API_URL') ??
       DEFAULT_PROXYAPI_URL;
 
-    return rawApiUrl.trim().length > 0 ? rawApiUrl.trim() : DEFAULT_PROXYAPI_URL;
+    const normalized = (rawApiUrl.trim().length > 0 ? rawApiUrl.trim() : DEFAULT_PROXYAPI_URL).replace(/\/+$/u, '');
+    if (normalized.endsWith('/chat/completions')) {
+      return normalized;
+    }
+
+    return `${normalized}/chat/completions`;
   }
 
   private resolveDefaultModel(): string {

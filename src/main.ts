@@ -1,5 +1,6 @@
 import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { AppModule } from './app.module';
 
 async function bootstrap(): Promise<void> {
@@ -23,7 +24,16 @@ async function bootstrap(): Promise<void> {
     })
   );
 
-  const port = Number(process.env.PORT ?? 3001);
+  const swaggerPath = process.env.SWAGGER_PATH ?? 'docs';
+  const swaggerConfig = new DocumentBuilder()
+    .setTitle('FirstAI Backend API')
+    .setDescription('HTTP API for MCP providers and file downloads')
+    .setVersion('1.0')
+    .build();
+  const swaggerDocument = SwaggerModule.createDocument(app, swaggerConfig);
+  SwaggerModule.setup(swaggerPath, app, swaggerDocument);
+
+  const port = Number(process.env.PORT ?? 5001);
   await app.listen(port);
 }
 

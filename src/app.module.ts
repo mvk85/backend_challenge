@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { McpModule } from './mcp/mcp.module';
+import { RagModule } from './rag/rag.module';
 
 @Module({
   imports: [
@@ -8,7 +9,8 @@ import { McpModule } from './mcp/mcp.module';
       isGlobal: true,
       cache: true
     }),
-    McpModule
+    McpModule,
+    RagModule
   ]
 })
 export class AppModule {}
