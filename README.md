@@ -65,8 +65,21 @@ npm run start
 - `POST /rag/indexes/build` — построение JSON-индекса (fixed/structured)
 - `POST /rag/indexes/compare` — сравнение двух стратегий chunking
 - `POST /rag/retrieve` — семантический поиск по локальному индексу
+- `POST /rag/retrieve/multi` — семантический поиск сразу по нескольким индексам
+- `POST /rag/files/upload` — загрузка файла из браузера (multipart/form-data)
+- `GET /rag/indexes` — список доступных индексов
 - `GET /rag/indexes/:indexId` — метаданные индекса
+- `DELETE /rag/indexes/:indexId` — удаление индекса по `indexId`
 - `GET /rag/health` — health-check RAG и embedding-конфига
+
+### Пример загрузки файла и сборки индекса
+
+```bash
+curl -X POST "http://localhost:3001/rag/files/upload" \
+  -F "file=@/Users/maksim/learn_ai/firstai/backend/example/factory.txt"
+```
+
+Из ответа возьмите `filePath` и передайте его в `POST /rag/indexes/build`.
 
 ## Полезные команды
 

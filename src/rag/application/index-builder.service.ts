@@ -44,7 +44,7 @@ export class IndexBuilderService {
     const { embeddings, model, dimensions } = await this.embeddingsClient.embedTexts(texts);
 
     const createdAt = new Date().toISOString();
-    const indexId = this.createIndexId(title, request.strategy, createdAt);
+    const indexId = this.createIndexId(fullPath, request.strategy, createdAt);
 
     const chunks = chunkDrafts.map((draft, index) => {
       const chunkId = `${indexId}_${String(index + 1).padStart(4, '0')}`;
@@ -112,8 +112,9 @@ export class IndexBuilderService {
     }
   }
 
-  private createIndexId(title: string, strategy: ChunkingStrategy, createdAt: string): string {
-    const slug = title
+  private createIndexId(filePath: string, strategy: ChunkingStrategy, createdAt: string): string {
+    const sourceName = path.basename(filePath, path.extname(filePath));
+    const slug = sourceName
       .toLowerCase()
       .replace(/[^a-z0-9]+/g, '-')
       .replace(/^-+|-+$/g, '')

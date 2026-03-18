@@ -8,6 +8,7 @@ import { CompareChunkingService } from './application/compare-chunking.service';
 import { RetrieveService } from './application/retrieve.service';
 import { ProxyApiEmbeddingsClient } from './infrastructure/proxyapi-embeddings.client';
 import { IndexJsonRepository } from './infrastructure/index-json.repository';
+import { RagFileStorageService } from './application/rag-file-storage.service';
 
 @Module({
   imports: [ConfigModule],
@@ -18,6 +19,7 @@ import { IndexJsonRepository } from './infrastructure/index-json.repository';
     IndexBuilderService,
     CompareChunkingService,
     RetrieveService,
+    RagFileStorageService,
     ProxyApiEmbeddingsClient,
     IndexJsonRepository
   ]
